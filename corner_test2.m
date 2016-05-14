@@ -1,22 +1,22 @@
-obj=VideoReader('C:\Users\Jason\Documents\MATLAB\Needle_Passing_B001_capture1.avi');
+obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B001_capture1.avi');
 nFrames=obj.NumberOfFrames;
 
 
 
 % Optical Flow: takes long AF so choose k interval
-for k=1:200
+for k=1:10
 I=read(obj,k);
 
-figure();
-subplot 211
-imshow(I);
+% figure();
+% subplot 211
+% imshow(I);
 im1t = im2double(rgb2gray(I));
 im1 = imresize(im1t, 0.5); % downsize to half
 
 
-fr2=read(obj,k+1);
-subplot 212
-imshow(fr2);
+% fr2=read(obj,k+1);
+% subplot 212
+% imshow(fr2);
 im2t = im2double(rgb2gray(fr2));
 im2 = imresize(im2t, 0.5); % downsize to half
 
