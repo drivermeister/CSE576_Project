@@ -8,13 +8,15 @@ x_sine = 1:1:100; y_sine = round(linspace(40,60,100));                  % accura
 % plot(x_sine,y_sine);
 
 %% 2 dimensional emissions (tuple case) - performs very poorly
+% Train set with seq and states to find transition and emission matrices
 seq = [x_line, x_sine, x_line, x_sine, x_line, x_sine, x_line;
         y_line, y_sine, y_line, y_sine, y_line, y_sine, y_line];
 % line is state 1 and sine state 2
+% states is 1xn vector with state for each seq entry
 states = [1*ones(1,size(x_line,2)), 2*ones(1,size(x_sine,2)), 1*ones(1,size(x_line,2)), 2*ones(1,size(x_sine,2)), 1*ones(1,size(x_line,2)), 2*ones(1,size(x_sine,2)), 1*ones(1,size(x_line,2))];
 [trans_est,emis_est] = hmmestimate(seq,states);         % estimate transition and emission matrices
 likelystates = hmmviterbi(seq, trans_est, emis_est);    % guess states from transition and emission matrices
-sum(states==likelystates)/size(states,2);               % assess accuracy of guessed states
+sum(states==likelystates)/size(states,2);               % accuracy of guessed states should ~ 1
 
 % test transition and emission matrices with flipped, shorter sequence 
 seq = [x_sine, x_line;
