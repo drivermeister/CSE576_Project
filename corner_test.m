@@ -1,4 +1,4 @@
-obj=VideoReader('C:\Users\Jason\Documents\MATLAB\Needle_Passing_B001_capture1.avi');
+obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B001_capture1.avi');
 nFrames=obj.NumberOfFrames;
 % I = imread('Boxes.png');
 % I = rgb2gray(I);
