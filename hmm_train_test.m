@@ -90,13 +90,10 @@ mean([x_acc,y_acc]);
 % seq = [xsd3_(1,:);%,xktd5_(1,:);
 %        ysd3_(1,:)];%,yktd5_(1,:)];
 seq = [xsd1_(1,:); ysd1_(1,:)];
-states = [2*size_ones];%,1*size_ones];
-% likelystates_x = hmmviterbi(seq(1,:), trans_estx, emis_estx);
-% likelystates_y = hmmviterbi(seq(2,:), trans_esty, emis_esty);
-% x_acc = sum(states==likelystates_x)/size(states,2);
-% y_acc = sum(states==likelystates_y)/size(states,2);
-% ind_acc = mean([x_acc,y_acc])                  
+states = [2*size_ones];%,1*size_ones];                
 pstatesx = hmmdecode(seq(1,:), trans_estx, emis_estx);
 pstatesy = hmmdecode(seq(2,:), trans_esty, emis_esty);
-
+xprob = sum(pstatesx,2)/size(states,2);
+yprob = sum(pstatesy,2)/size(states,2);
+prob = (xprob + yprob)/2
 
