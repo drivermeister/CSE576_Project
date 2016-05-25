@@ -1,6 +1,8 @@
 clear all; close all; 
-% import data - x and y has date for ee1 in row 1, ee2 in row 2
+
+%% import data - x and y has date for ee1 in row 1, ee2 in row 2
 scale = 1;
+% D videos
 KTD5 = csvread('clust_KT_D005.csv');
 xktd5_ = round(KTD5(1:end,1:2)'*scale);
 yktd5_ = round(KTD5(1:end,3:4)'*scale);
@@ -33,6 +35,7 @@ SD1 = csvread('clust_S_D001.csv');
 xsd1_ = round(SD1(1:end,1:2)'*scale);
 ysd1_ = round(SD1(1:end,3:4)'*scale);
 
+% B videos
 KTB4 = csvread('clust_KT_B004.csv'); % no KT_B005
 xktb4_ = round(KTB4(1:end,1:2)'*scale);
 yktb4_ = round(KTB4(1:end,3:4)'*scale);
