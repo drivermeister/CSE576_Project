@@ -1,10 +1,10 @@
 clear all; close all; 
 
-%% import data - x and y has date for ee1 in row 1, ee2 in row 2
-scale = 1;
+%% import data - x and y has data for ee1 in row 1, ee2 in row 2
+scale = 1; % parameter to play with, if desired
 % B videos
 % no 5
-KTB4 = csvread('clust_KT_B004.csv');
+KTB4 = csvread('clust_KT_B004.csv');    % must round to integers for use with hmm
 xktb4_ = round(KTB4(1:end,1:2)'*scale);
 yktb4_ = round(KTB4(1:end,3:4)'*scale);
 KTB3 = csvread('clust_KT_B003.csv');
@@ -358,19 +358,15 @@ seq = [xsg3_(1,:),xnpi3_(1,:),xsg5_(1,:),xnpf4_(1,:),xsf5_(1,:),xsg2_(1,:),xnph5
        ysg3_(1,:),ynpi3_(1,:),ysg5_(1,:),ynpf4_(1,:),ysf5_(1,:),ysg2_(1,:),ynph5_(1,:),ynpc3_(1,:),ynpc2_(1,:),yse2_(1,:),ynpb2_(1,:),ysb2_(1,:),ysd3_(1,:),yktf4_(1,:),ysh4_(1,:),ynpb4_(1,:),ysf2_(1,:),ynpc4_(1,:),yse3_(1,:),ysh5_(1,:),ynpd3_(1,:),yktg2_(1,:),ykte4_(1,:),yktf5_(1,:),ynpi4_(1,:),ykth4_(1,:),ysc3_(1,:),ykti2_(1,:),ysi4_(1,:),ysh3_(1,:),yktc3_(1,:),yse4_(1,:),ysb3_(1,:),ynph4_(1,:),ysf4_(1,:),ynpb3_(1,:),ykti3_(1,:),ynpi5_(1,:),ynpi2_(1,:),ykth3_(1,:),yktg4_(1,:),yktf2_(1,:),ysb4_(1,:),ykte2_(1,:),yktg3_(1,:),yktb3_(1,:),ykti5_(1,:),ynpd5_(1,:),yktd2_(1,:),ysg4_(1,:),ykth5_(1,:),yktf3_(1,:),yktb4_(1,:),ynpc5_(1,:),yktg5_(1,:),yktd3_(1,:),ysi5_(1,:),ynpd4_(1,:),ynpf3_(1,:),yktd5_(1,:),ykte3_(1,:),ysd2_(1,:),ynpe5_(1,:),yse5_(1,:),ynpe4_(1,:),ysf3_(1,:),yktb2_(1,:),ynph2_(1,:),ysd5_(1,:),ysc5_(1,:),ynpd2_(1,:),yktd4_(1,:),ysi2_(1,:),ysb5_(1,:),ysc2_(1,:),yktc2_(1,:),ykte5_(1,:),yktc4_(1,:),ysd4_(1,:),ysc4_(1,:),ysi3_(1,:),ynpe3_(1,:)];
 
 % kt state 1, np state 2, s state 3
-size_ones = ones(1,size(xktd5_,2));
+size_ones = ones(1,size(xktd5_,2)); % all variables have same # of frames analyzed so same length
 states = [3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_ones,2*size_ones,2*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_ones,1*size_ones,3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_ones,2*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,3*size_ones,1*size_ones,3*size_ones,3*size_ones,1*size_ones,3*size_ones,3*size_ones,2*size_ones,3*size_ones,2*size_ones,1*size_ones,2*size_ones,2*size_ones,1*size_ones,1*size_ones,1*size_ones,3*size_ones,1*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,3*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,1*size_ones,3*size_ones,2*size_ones,2*size_ones,1*size_ones,1*size_ones,3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,3*size_ones,2*size_ones,1*size_ones,3*size_ones,3*size_ones,3*size_ones,1*size_ones,1*size_ones,1*size_ones,3*size_ones,3*size_ones,3*size_ones,2*size_ones];
 
 [trans_estx,emis_estx] = hmmestimate(seq(1,:),states);
 [trans_esty,emis_esty] = hmmestimate(seq(2,:),states);
-% likelystates_x = hmmviterbi(seq(1,:), trans_estx, emis_estx);
-% likelystates_y = hmmviterbi(seq(2,:), trans_esty, emis_esty);
-% x_acc = sum(states==likelystates_x)/size(states,2);
-% y_acc = sum(states==likelystates_y)/size(states,2);
-% mean([x_acc,y_acc]);
 
-seq = [xse1_(1,:); yse1_(1,:)];
-states = [3*size_ones];                
+% sequence testing, all "XXX_X_001.csv" data sets left out of training
+seq = [xnpi1_(1,:); ynpi1_(1,:)];
+states = 3*size_ones;                
 pstatesx = hmmdecode(seq(1,:), trans_estx, emis_estx);
 pstatesy = hmmdecode(seq(2,:), trans_esty, emis_esty);
 xprob = sum(pstatesx,2)/size(states,2);

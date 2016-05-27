@@ -1,3 +1,7 @@
+% Load all videos
+% obtain xy coords of top two clusters 
+% store in csv file
+
 clear all; close all;
 
 %% B videos
