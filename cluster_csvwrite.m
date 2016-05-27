@@ -8,56 +8,53 @@ clear all; close all;
 
 %nFrames=obj.NumberOfFrames;
 alpha = 0.3; % variable to determine new cluster weight
-nFrames = 100;
+nFrames = 300;
 % no 5 ktb video
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_B004_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_KT_B004.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_B003_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_KT_B003.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_B002_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_KT_B002.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_B001_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_KT_B001.csv',[clust1,clust2]);
-
-% no 5 npb video
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B004_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_NP_B004.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B003_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_NP_B003.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B002_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_NP_B002.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B001_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_NP_B001.csv',[clust1,clust2]);
-
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B005_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_S_B005.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B004_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_S_B004.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B003_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_S_B003.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B002_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_S_B002.csv',[clust1,clust2]);
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B001_capture1.avi');
-[clust1,clust2] = getCorners(obj,alpha,nFrames);
-csvwrite('clust_S_B001.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_B004_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_KT_B004.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_B003_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_KT_B003.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_B002_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_KT_B002.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_B001_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_KT_B001.csv',[clust1,clust2]);
+% 
+% % no 5 npb video
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B004_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_NP_B004.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B003_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_NP_B003.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B002_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_NP_B002.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Needle_Passing_B001_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_NP_B001.csv',[clust1,clust2]);
+% 
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B005_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_S_B005.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B004_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_S_B004.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B003_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_S_B003.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B002_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_S_B002.csv',[clust1,clust2]);
+% obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_B001_capture1.avi');
+% [clust1,clust2] = getCorners(obj,alpha,nFrames);
+% csvwrite('clust_S_B001.csv',[clust1,clust2]);
 
 %% C videos
 
-%nFrames=obj.NumberOfFrames;
-alpha = 0.3; % variable to determine new cluster weight
-nFrames = 100;
 obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_C005_capture1.avi');
 [clust1,clust2] = getCorners(obj,alpha,nFrames);
 csvwrite('clust_KT_C005.csv',[clust1,clust2]);
@@ -108,9 +105,6 @@ csvwrite('clust_S_C001.csv',[clust1,clust2]);
 
 %% D videos
 
-%nFrames=obj.NumberOfFrames;
-alpha = 0.3; % variable to determine new cluster weight
-nFrames = 100;
 obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_D005_capture1.avi');
 [clust1,clust2] = getCorners(obj,alpha,nFrames);
 csvwrite('clust_KT_D005.csv',[clust1,clust2]);
@@ -161,9 +155,6 @@ csvwrite('clust_S_D001.csv',[clust1,clust2]);
 
 %% E videos
 
-%nFrames=obj.NumberOfFrames;
-alpha = 0.3; % variable to determine new cluster weight
-nFrames = 100;
 obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_E005_capture1.avi');
 [clust1,clust2] = getCorners(obj,alpha,nFrames);
 csvwrite('clust_KT_E005.csv',[clust1,clust2]);
@@ -212,9 +203,6 @@ csvwrite('clust_S_E001.csv',[clust1,clust2]);
 
 %% F videos
 
-%nFrames=obj.NumberOfFrames;
-alpha = 0.3; % variable to determine new cluster weight
-nFrames = 100;
 obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_F005_capture1.avi');
 [clust1,clust2] = getCorners(obj,alpha,nFrames);
 csvwrite('clust_KT_F005.csv',[clust1,clust2]);
@@ -261,9 +249,6 @@ csvwrite('clust_S_F001.csv',[clust1,clust2]);
 
 %% G videos
 
-%nFrames=obj.NumberOfFrames;
-alpha = 0.3; % variable to determine new cluster weight
-nFrames = 100;
 obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_G005_capture1.avi');
 [clust1,clust2] = getCorners(obj,alpha,nFrames);
 csvwrite('clust_KT_G005.csv',[clust1,clust2]);
@@ -300,9 +285,6 @@ csvwrite('clust_S_G001.csv',[clust1,clust2]);
 
 %% H videos
 
-%nFrames=obj.NumberOfFrames;
-alpha = 0.3; % variable to determine new cluster weight
-nFrames = 100;
 obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_H005_capture1.avi');
 [clust1,clust2] = getCorners(obj,alpha,nFrames);
 csvwrite('clust_KT_H005.csv',[clust1,clust2]);
@@ -342,9 +324,6 @@ csvwrite('clust_S_H001.csv',[clust1,clust2]);
 
 %% I videos
 
-%nFrames=obj.NumberOfFrames;
-alpha = 0.3; % variable to determine new cluster weight
-nFrames = 100;
 obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_I005_capture1.avi');
 [clust1,clust2] = getCorners(obj,alpha,nFrames);
 csvwrite('clust_KT_I005.csv',[clust1,clust2]);

@@ -365,10 +365,35 @@ states = [3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_one
 [trans_esty,emis_esty] = hmmestimate(seq(2,:),states);
 
 % sequence testing, all "XXX_X_001.csv" data sets left out of training
-seq = [xnpi1_(1,:); ynpi1_(1,:)];
-states = 3*size_ones;                
-pstatesx = hmmdecode(seq(1,:), trans_estx, emis_estx);
-pstatesy = hmmdecode(seq(2,:), trans_esty, emis_esty);
-xprob = sum(pstatesx,2)/size(states,2);
-yprob = sum(pstatesy,2)/size(states,2);
-prob = (xprob + yprob)/2
+%files = ['clust_KT_B001.csv', 'clust_KT_C001.csv', 'clust_KT_D001.csv', 'clust_KT_E001.csv', 'clust_KT_F001.csv', 'clust_KT_G001.csv', 'clust_KT_I001.csv', 'clust_NP_B001.csv', 'clust_NP_C001.csv', 'clust_NP_D001.csv', 'clust_NP_E001.csv', 'clust_NP_F001.csv', 'clust_S_B005.csv', 'clust_S_C005.csv', 'clust_S_D005.csv', 'clust_S_E005.csv', 'clust_S_F005.csv', 'clust_S_G005.csv', 'clust_S_H005.csv', 'clust_S_I005.csv'];
+seq = [xktb1_(1,:),xktc1_(1,:),xktd1_(1,:),xkte1_(1,:),xktf1_(1,:),xktg1_(1,:),xkti1_(1,:),xnpb1_(1,:),xnpc1_(1,:),xnpd1_(1,:),xnpe1_(1,:),xnpf1_(1,:),xsb1_(1,:),xsc1_(1,:),xsd1_(1,:),xse1_(1,:),xsf1_(1,:),xsg1_(1,:),xsh1_(1,:),xsi1_(1,:); 
+       yktb1_(1,:),yktc1_(1,:),yktd1_(1,:),ykte1_(1,:),yktf1_(1,:),yktg1_(1,:),ykti1_(1,:),ynpb1_(1,:),ynpc1_(1,:),ynpd1_(1,:),ynpe1_(1,:),ynpf1_(1,:),ysb1_(1,:),ysc1_(1,:),ysd1_(1,:),yse1_(1,:),ysf1_(1,:),ysg1_(1,:),ysh1_(1,:),ysi1_(1,:)];
+seq(seq>607)=607; % clip (largest is 615)
+states = 3*size_ones;
+seqnum = size(seq,2)/size(states,2); % number of sequences testing
+results = zeros(9,8*3);
+for i=1:seqnum
+    seqi = seq(:,(1+(i-1)*size(states,2)):(i*size(states,2)));
+    pstatesx = hmmdecode(seqi(1,:), trans_estx, emis_estx);
+    pstatesy = hmmdecode(seqi(2,:), trans_esty, emis_esty);
+    xprob = sum(pstatesx,2)/size(states,2);
+    yprob = sum(pstatesy,2)/size(states,2);
+    prob = (xprob + yprob)/2;
+    if i>7 
+        if i>12 % s
+            results(7:9,1+(i-1-12)*3) = prob;
+            results(7:9,2+(i-1-12)*3) = xprob;
+            results(7:9,3+(i-1-12)*3) = yprob;
+        else % np
+            results(4:6,1+(i-1-7)*3) = prob;
+            results(4:6,2+(i-1-7)*3) = xprob;
+            results(4:6,3+(i-1-7)*3) = yprob;
+        end
+    else % kt
+        results(1:3,1+(i-1)*3) = prob;
+        results(1:3,2+(i-1)*3) = xprob;
+        results(1:3,3+(i-1)*3) = yprob;
+    end
+end
+                
+csvwrite('test_300frames_pt3alpha.csv',results,1,1);
