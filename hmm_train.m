@@ -2,7 +2,7 @@ clear all; close all;
 
 %% import data - x and y has data for ee1 in row 1, ee2 in row 2
 scale = 1; % parameter to play with, if desired
-nFrames = 300; % frames to process. 870 is the max
+nFrames = 870; % frames to process. 870 is the max
 % B videos
 % no 5
 KTB4 = csvread('clust_KT_B004.csv');    % must round to integers for use with hmm
@@ -355,15 +355,24 @@ xsi1_ = round(SI1(1:nFrames,[1 3])'*scale);
 ysi1_ = round(SI1(1:nFrames,[2 4])'*scale);
 
 %% independent hmm for each dimension 
-seq = [xsg3_(1,:),xnpi3_(1,:),xsg5_(1,:),xnpf4_(1,:),xsf5_(1,:),xsg2_(1,:),xnph5_(1,:),xnpc3_(1,:),xnpc2_(1,:),xse2_(1,:),xnpb2_(1,:),xsb2_(1,:),xsd3_(1,:),xktf4_(1,:),xsh4_(1,:),xnpb4_(1,:),xsf2_(1,:),xnpc4_(1,:),xse3_(1,:),xsh5_(1,:),xnpd3_(1,:),xktg2_(1,:),xkte4_(1,:),xktf5_(1,:),xnpi4_(1,:),xkth4_(1,:),xsc3_(1,:),xkti2_(1,:),xsi4_(1,:),xsh3_(1,:),xktc3_(1,:),xse4_(1,:),xsb3_(1,:),xnph4_(1,:),xsf4_(1,:),xnpb3_(1,:),xkti3_(1,:),xnpi5_(1,:),xnpi2_(1,:),xkth3_(1,:),xktg4_(1,:),xktf2_(1,:),xsb4_(1,:),xkte2_(1,:),xktg3_(1,:),xktb3_(1,:),xkti5_(1,:),xnpd5_(1,:),xktd2_(1,:),xsg4_(1,:),xkth5_(1,:),xktf3_(1,:),xktb4_(1,:),xnpc5_(1,:),xktg5_(1,:),xktd3_(1,:),xsi5_(1,:),xnpd4_(1,:),xnpf3_(1,:),xktd5_(1,:),xkte3_(1,:),xsd2_(1,:),xnpe5_(1,:),xse5_(1,:),xnpe4_(1,:),xsf3_(1,:),xktb2_(1,:),xnph2_(1,:),xsd5_(1,:),xsc5_(1,:),xnpd2_(1,:),xktd4_(1,:),xsi2_(1,:),xsb5_(1,:),xsc2_(1,:),xktc2_(1,:),xkte5_(1,:),xktc4_(1,:),xsd4_(1,:),xsc4_(1,:),xsi3_(1,:),xnpe3_(1,:);
+% sequence for x and y data of most prominent cluster
+seq1 = [xsg3_(1,:),xnpi3_(1,:),xsg5_(1,:),xnpf4_(1,:),xsf5_(1,:),xsg2_(1,:),xnph5_(1,:),xnpc3_(1,:),xnpc2_(1,:),xse2_(1,:),xnpb2_(1,:),xsb2_(1,:),xsd3_(1,:),xktf4_(1,:),xsh4_(1,:),xnpb4_(1,:),xsf2_(1,:),xnpc4_(1,:),xse3_(1,:),xsh5_(1,:),xnpd3_(1,:),xktg2_(1,:),xkte4_(1,:),xktf5_(1,:),xnpi4_(1,:),xkth4_(1,:),xsc3_(1,:),xkti2_(1,:),xsi4_(1,:),xsh3_(1,:),xktc3_(1,:),xse4_(1,:),xsb3_(1,:),xnph4_(1,:),xsf4_(1,:),xnpb3_(1,:),xkti3_(1,:),xnpi5_(1,:),xnpi2_(1,:),xkth3_(1,:),xktg4_(1,:),xktf2_(1,:),xsb4_(1,:),xkte2_(1,:),xktg3_(1,:),xktb3_(1,:),xkti5_(1,:),xnpd5_(1,:),xktd2_(1,:),xsg4_(1,:),xkth5_(1,:),xktf3_(1,:),xktb4_(1,:),xnpc5_(1,:),xktg5_(1,:),xktd3_(1,:),xsi5_(1,:),xnpd4_(1,:),xnpf3_(1,:),xktd5_(1,:),xkte3_(1,:),xsd2_(1,:),xnpe5_(1,:),xse5_(1,:),xnpe4_(1,:),xsf3_(1,:),xktb2_(1,:),xnph2_(1,:),xsd5_(1,:),xsc5_(1,:),xnpd2_(1,:),xktd4_(1,:),xsi2_(1,:),xsb5_(1,:),xsc2_(1,:),xktc2_(1,:),xkte5_(1,:),xktc4_(1,:),xsd4_(1,:),xsc4_(1,:),xsi3_(1,:),xnpe3_(1,:);
        ysg3_(1,:),ynpi3_(1,:),ysg5_(1,:),ynpf4_(1,:),ysf5_(1,:),ysg2_(1,:),ynph5_(1,:),ynpc3_(1,:),ynpc2_(1,:),yse2_(1,:),ynpb2_(1,:),ysb2_(1,:),ysd3_(1,:),yktf4_(1,:),ysh4_(1,:),ynpb4_(1,:),ysf2_(1,:),ynpc4_(1,:),yse3_(1,:),ysh5_(1,:),ynpd3_(1,:),yktg2_(1,:),ykte4_(1,:),yktf5_(1,:),ynpi4_(1,:),ykth4_(1,:),ysc3_(1,:),ykti2_(1,:),ysi4_(1,:),ysh3_(1,:),yktc3_(1,:),yse4_(1,:),ysb3_(1,:),ynph4_(1,:),ysf4_(1,:),ynpb3_(1,:),ykti3_(1,:),ynpi5_(1,:),ynpi2_(1,:),ykth3_(1,:),yktg4_(1,:),yktf2_(1,:),ysb4_(1,:),ykte2_(1,:),yktg3_(1,:),yktb3_(1,:),ykti5_(1,:),ynpd5_(1,:),yktd2_(1,:),ysg4_(1,:),ykth5_(1,:),yktf3_(1,:),yktb4_(1,:),ynpc5_(1,:),yktg5_(1,:),yktd3_(1,:),ysi5_(1,:),ynpd4_(1,:),ynpf3_(1,:),yktd5_(1,:),ykte3_(1,:),ysd2_(1,:),ynpe5_(1,:),yse5_(1,:),ynpe4_(1,:),ysf3_(1,:),yktb2_(1,:),ynph2_(1,:),ysd5_(1,:),ysc5_(1,:),ynpd2_(1,:),yktd4_(1,:),ysi2_(1,:),ysb5_(1,:),ysc2_(1,:),yktc2_(1,:),ykte5_(1,:),yktc4_(1,:),ysd4_(1,:),ysc4_(1,:),ysi3_(1,:),ynpe3_(1,:)];
+% sequence for x and y data of second most prominent cluster
+seq2 = [xsg3_(2,:),xnpi3_(2,:),xsg5_(2,:),xnpf4_(2,:),xsf5_(2,:),xsg2_(2,:),xnph5_(2,:),xnpc3_(2,:),xnpc2_(2,:),xse2_(2,:),xnpb2_(2,:),xsb2_(2,:),xsd3_(2,:),xktf4_(2,:),xsh4_(2,:),xnpb4_(2,:),xsf2_(2,:),xnpc4_(2,:),xse3_(2,:),xsh5_(2,:),xnpd3_(2,:),xktg2_(2,:),xkte4_(2,:),xktf5_(2,:),xnpi4_(2,:),xkth4_(2,:),xsc3_(2,:),xkti2_(2,:),xsi4_(2,:),xsh3_(2,:),xktc3_(2,:),xse4_(2,:),xsb3_(2,:),xnph4_(2,:),xsf4_(2,:),xnpb3_(2,:),xkti3_(2,:),xnpi5_(2,:),xnpi2_(2,:),xkth3_(2,:),xktg4_(2,:),xktf2_(2,:),xsb4_(2,:),xkte2_(2,:),xktg3_(2,:),xktb3_(2,:),xkti5_(2,:),xnpd5_(2,:),xktd2_(2,:),xsg4_(2,:),xkth5_(2,:),xktf3_(2,:),xktb4_(2,:),xnpc5_(2,:),xktg5_(2,:),xktd3_(2,:),xsi5_(2,:),xnpd4_(2,:),xnpf3_(2,:),xktd5_(2,:),xkte3_(2,:),xsd2_(2,:),xnpe5_(2,:),xse5_(2,:),xnpe4_(2,:),xsf3_(2,:),xktb2_(2,:),xnph2_(2,:),xsd5_(2,:),xsc5_(2,:),xnpd2_(2,:),xktd4_(2,:),xsi2_(2,:),xsb5_(2,:),xsc2_(2,:),xktc2_(2,:),xkte5_(2,:),xktc4_(2,:),xsd4_(2,:),xsc4_(2,:),xsi3_(2,:),xnpe3_(2,:);
+       ysg3_(2,:),ynpi3_(2,:),ysg5_(2,:),ynpf4_(2,:),ysf5_(2,:),ysg2_(2,:),ynph5_(2,:),ynpc3_(2,:),ynpc2_(2,:),yse2_(2,:),ynpb2_(2,:),ysb2_(2,:),ysd3_(2,:),yktf4_(2,:),ysh4_(2,:),ynpb4_(2,:),ysf2_(2,:),ynpc4_(2,:),yse3_(2,:),ysh5_(2,:),ynpd3_(2,:),yktg2_(2,:),ykte4_(2,:),yktf5_(2,:),ynpi4_(2,:),ykth4_(2,:),ysc3_(2,:),ykti2_(2,:),ysi4_(2,:),ysh3_(2,:),yktc3_(2,:),yse4_(2,:),ysb3_(2,:),ynph4_(2,:),ysf4_(2,:),ynpb3_(2,:),ykti3_(2,:),ynpi5_(2,:),ynpi2_(2,:),ykth3_(2,:),yktg4_(2,:),yktf2_(2,:),ysb4_(2,:),ykte2_(2,:),yktg3_(2,:),yktb3_(2,:),ykti5_(2,:),ynpd5_(2,:),yktd2_(2,:),ysg4_(2,:),ykth5_(2,:),yktf3_(2,:),yktb4_(2,:),ynpc5_(2,:),yktg5_(2,:),yktd3_(2,:),ysi5_(2,:),ynpd4_(2,:),ynpf3_(2,:),yktd5_(2,:),ykte3_(2,:),ysd2_(2,:),ynpe5_(2,:),yse5_(2,:),ynpe4_(2,:),ysf3_(2,:),yktb2_(2,:),ynph2_(2,:),ysd5_(2,:),ysc5_(2,:),ynpd2_(2,:),yktd4_(2,:),ysi2_(2,:),ysb5_(2,:),ysc2_(2,:),yktc2_(2,:),ykte5_(2,:),yktc4_(2,:),ysd4_(2,:),ysc4_(2,:),ysi3_(2,:),ynpe3_(2,:)];
 
+   
 % kt state 1, np state 2, s state 3
 size_ones = ones(1,size(xktd5_,2)); % all variables have same # of frames analyzed so same length
 states = [3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_ones,2*size_ones,2*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_ones,1*size_ones,3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_ones,2*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,3*size_ones,1*size_ones,3*size_ones,3*size_ones,1*size_ones,3*size_ones,3*size_ones,2*size_ones,3*size_ones,2*size_ones,1*size_ones,2*size_ones,2*size_ones,1*size_ones,1*size_ones,1*size_ones,3*size_ones,1*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,3*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,1*size_ones,3*size_ones,2*size_ones,2*size_ones,1*size_ones,1*size_ones,3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,3*size_ones,2*size_ones,1*size_ones,3*size_ones,3*size_ones,3*size_ones,1*size_ones,1*size_ones,1*size_ones,3*size_ones,3*size_ones,3*size_ones,2*size_ones];
 
-[trans_estx,emis_estx] = hmmestimate(seq(1,:),states);
-[trans_esty,emis_esty] = hmmestimate(seq(2,:),states);
+[trans_estx,emis_estx] = hmmestimate(seq2(1,:),states); % seq# here corresponds to seq# in saved .csv below
+[trans_esty,emis_esty] = hmmestimate(seq2(2,:),states);
+% fix Nan issue
+min = 1e-10; % choose a small non-zero value
+emis_estx(emis_estx < min) = min;
+emis_esty(emis_esty < min) = min;
 
 % sequence testing, all "XXX_X_001.csv" data sets left out of training
 %files = ['clust_KT_B001.csv', 'clust_KT_C001.csv', 'clust_KT_D001.csv', 'clust_KT_E001.csv', 'clust_KT_F001.csv', 'clust_KT_G001.csv', 'clust_KT_I001.csv', 'clust_NP_B001.csv', 'clust_NP_C001.csv', 'clust_NP_D001.csv', 'clust_NP_E001.csv', 'clust_NP_F001.csv', 'clust_S_B005.csv', 'clust_S_C005.csv', 'clust_S_D005.csv', 'clust_S_E005.csv', 'clust_S_F005.csv', 'clust_S_G005.csv', 'clust_S_H005.csv', 'clust_S_I005.csv'];
@@ -397,4 +406,4 @@ for i=1:seqnum
     end
 end
                 
-csvwrite('test_300frames_pt3alpha.csv',results,1,1);
+csvwrite('test_870frames_pt3alpha_seq2.csv',results,1,1);
