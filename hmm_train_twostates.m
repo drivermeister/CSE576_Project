@@ -1,7 +1,7 @@
 clear all; close all; 
 
 % import data - x and y has data for ee1 in row 1, ee2 in row 2
-scale = 1.4; % parameter to play with, if desired
+scale = 1.2; % parameter to play with, if desired
 nFrames = 870; % frames to process. 870 is the max
 % B videos
 % no 5
@@ -407,4 +407,4 @@ for i=1:seqnum
     end
 end
                 
-csvwrite('test_870frames_pt3alpha_seq1_2state_test1_4.csv',results,1,1);
+csvwrite('test_870frames_pt3alpha_seq1_2state_test1_2.csv',results,1,1);
