@@ -1,7 +1,7 @@
 clear all; close all; 
 
 % import data - x and y has data for ee1 in row 1, ee2 in row 2
-scale = 1.4; % parameter to play with, if desired
+scale = 2.0; % parameter to play with, if desired
 nFrames = 870; % frames to process. 870 is the max
 % B videos
 % no 5
@@ -356,105 +356,65 @@ ysi1_ = round(SI1(1:nFrames,[2 4])'*scale);
 
 %% independent hmm for each dimension 
 % sequence for x and y data of most prominent cluster
-start  = 1;
-frames = 850;
-
-seqB1 = [xktb2_(1,start:frames),xnpb2_(1,start:frames),xsb2_(1,start:frames),xktb3_(1,start:frames),xnpb3_(1,start:frames),xsb3_(1,start:frames),xktb4_(1,start:frames),xnpb4_(1,start:frames),xsb4_(1,start:frames),xsb5_(1,start:frames);
-         yktb2_(1,start:frames),ynpb2_(1,start:frames),ysb2_(1,start:frames),yktb3_(1,start:frames),ynpb3_(1,start:frames),ysb3_(1,start:frames),yktb4_(1,start:frames),ynpb4_(1,start:frames),ysb4_(1,start:frames),ysb5_(1,start:frames)];
-seqC1 = [xktc2_(1,start:frames),xnpc2_(1,start:frames),xsc2_(1,start:frames),xktc3_(1,start:frames),xnpc3_(1,start:frames),xsc3_(1,start:frames),xktc4_(1,start:frames),xnpc4_(1,start:frames),xsc4_(1,start:frames),xnpc5_(1,start:frames),xsc5_(1,start:frames);
-         yktc2_(1,start:frames),ynpc2_(1,start:frames),ysc2_(1,start:frames),yktc3_(1,start:frames),ynpc3_(1,start:frames),ysc3_(1,start:frames),yktc4_(1,start:frames),ynpc4_(1,start:frames),ysc4_(1,start:frames),xnpc5_(1,start:frames),ysc5_(1,start:frames)];
-seqD1 = [xktd2_(1,start:frames),xnpd2_(1,start:frames),xsd2_(1,start:frames),xktd3_(1,start:frames),xnpd3_(1,start:frames),xsd3_(1,start:frames),xktd4_(1,start:frames),xnpd4_(1,start:frames),xsd4_(1,start:frames),xktd5_(1,start:frames),xnpd5_(1,start:frames),xsd5_(1,start:frames);
-         yktd2_(1,start:frames),ynpd2_(1,start:frames),ysd2_(1,start:frames),yktd3_(1,start:frames),ynpd3_(1,start:frames),ysd3_(1,start:frames),yktd4_(1,start:frames),ynpd4_(1,start:frames),ysd4_(1,start:frames),yktd5_(1,start:frames),ynpd5_(1,start:frames),ysd5_(1,start:frames)];
-seqE1 = [xkte2_(1,start:frames),xse2_(1,start:frames),xkte3_(1,start:frames),xnpe3_(1,start:frames),xse3_(1,start:frames),xkte4_(1,start:frames),xnpe4_(1,start:frames),xse4_(1,start:frames),xkte5_(1,start:frames),xnpe5_(1,start:frames),xse5_(1,start:frames);
-         ykte2_(1,start:frames),yse2_(1,start:frames),ykte3_(1,start:frames),ynpe3_(1,start:frames),yse3_(1,start:frames),ykte4_(1,start:frames),ynpe4_(1,start:frames),yse4_(1,start:frames),ykte5_(1,start:frames),ynpe5_(1,start:frames),yse5_(1,start:frames)];
-seqF1 = [xktf2_(1,start:frames),xsf2_(1,start:frames),xktf3_(1,start:frames),xnpf3_(1,start:frames),xsf3_(1,start:frames),xktf4_(1,start:frames),xnpf4_(1,start:frames),xsf4_(1,start:frames),xktf5_(1,start:frames),xsf5_(1,start:frames);
-         yktf2_(1,start:frames),ysf2_(1,start:frames),yktf3_(1,start:frames),ynpf3_(1,start:frames),ysf3_(1,start:frames),yktf4_(1,start:frames),ynpf4_(1,start:frames),ysf4_(1,start:frames),yktf5_(1,start:frames),ysf5_(1,start:frames)];
-seqG1 = [xktg2_(1,start:frames),xsg2_(1,start:frames),xktg3_(1,start:frames),xsg3_(1,start:frames),xktg4_(1,start:frames),xsg4_(1,start:frames),xktg5_(1,start:frames),xsg5_(1,start:frames);
-         yktg2_(1,start:frames),ysg2_(1,start:frames),yktg3_(1,start:frames),ysg3_(1,start:frames),yktg4_(1,start:frames),ysg4_(1,start:frames),yktg5_(1,start:frames),ysg5_(1,start:frames)];
-seqH1 = [xnph2_(1,start:frames),xkth3_(1,start:frames),xsh3_(1,start:frames),xkth4_(1,start:frames),xnph4_(1,start:frames),xsh4_(1,start:frames),xkth5_(1,start:frames),xnph5_(1,start:frames),xsh5_(1,start:frames);
-         ynph2_(1,start:frames),ykth3_(1,start:frames),ysh3_(1,start:frames),ykth4_(1,start:frames),ynph4_(1,start:frames),ysh4_(1,start:frames),ykth5_(1,start:frames),ynph5_(1,start:frames),ysh5_(1,start:frames)];
-seqI1 = [xkti2_(1,start:frames),xnpi2_(1,start:frames),xsi2_(1,start:frames),xkti3_(1,start:frames),xnpi3_(1,start:frames),xsi3_(1,start:frames),xnpi4_(1,start:frames),xsi4_(1,start:frames),xkti5_(1,start:frames),xnpi5_(1,start:frames),xsi5_(1,start:frames);
-         ykti2_(1,start:frames),ynpi2_(1,start:frames),ysi2_(1,start:frames),ykti3_(1,start:frames),ynpi3_(1,start:frames),ysi3_(1,start:frames),ynpi4_(1,start:frames),ysi4_(1,start:frames),ykti5_(1,start:frames),ynpi5_(1,start:frames),ysi5_(1,start:frames)];
-
+start  = 100;
+frames = 800;
+seq1 = [xsg3_(1,start:frames),xnpi3_(1,start:frames),xsg5_(1,start:frames),xnpf4_(1,start:frames),xsf5_(1,start:frames),xsg2_(1,start:frames),xnph5_(1,start:frames),xnpc3_(1,start:frames),xnpc2_(1,start:frames),xse2_(1,start:frames),xnpb2_(1,start:frames),xsb2_(1,start:frames),xsd3_(1,start:frames),xktf4_(1,start:frames),xsh4_(1,start:frames),xnpb4_(1,start:frames),xsf2_(1,start:frames),xnpc4_(1,start:frames),xse3_(1,start:frames),xsh5_(1,start:frames),xnpd3_(1,start:frames),xktg2_(1,start:frames),xkte4_(1,start:frames),xktf5_(1,start:frames),xnpi4_(1,start:frames),xkth4_(1,start:frames),xsc3_(1,start:frames),xkti2_(1,start:frames),xsi4_(1,start:frames),xsh3_(1,start:frames),xktc3_(1,start:frames),xse4_(1,start:frames),xsb3_(1,start:frames),xnph4_(1,start:frames),xsf4_(1,start:frames),xnpb3_(1,start:frames),xkti3_(1,start:frames),xnpi5_(1,start:frames),xnpi2_(1,start:frames),xkth3_(1,start:frames),xktg4_(1,start:frames),xktf2_(1,start:frames),xsb4_(1,start:frames),xkte2_(1,start:frames),xktg3_(1,start:frames),xktb3_(1,start:frames),xkti5_(1,start:frames),xnpd5_(1,start:frames),xktd2_(1,start:frames),xsg4_(1,start:frames),xkth5_(1,start:frames),xktf3_(1,start:frames),xktb4_(1,start:frames),xnpc5_(1,start:frames),xktg5_(1,start:frames),xktd3_(1,start:frames),xsi5_(1,start:frames),xnpd4_(1,start:frames),xnpf3_(1,start:frames),xktd5_(1,start:frames),xkte3_(1,start:frames),xsd2_(1,start:frames),xnpe5_(1,start:frames),xse5_(1,start:frames),xnpe4_(1,start:frames),xsf3_(1,start:frames),xktb2_(1,start:frames),xnph2_(1,start:frames),xsd5_(1,start:frames),xsc5_(1,start:frames),xnpd2_(1,start:frames),xktd4_(1,start:frames),xsi2_(1,start:frames),xsb5_(1,start:frames),xsc2_(1,start:frames),xktc2_(1,start:frames),xkte5_(1,start:frames),xktc4_(1,start:frames),xsd4_(1,start:frames),xsc4_(1,start:frames),xsi3_(1,start:frames),xnpe3_(1,start:frames);
+        ysg3_(1,start:frames),ynpi3_(1,start:frames),ysg5_(1,start:frames),ynpf4_(1,start:frames),ysf5_(1,start:frames),ysg2_(1,start:frames),ynph5_(1,start:frames),ynpc3_(1,start:frames),ynpc2_(1,start:frames),yse2_(1,start:frames),ynpb2_(1,start:frames),ysb2_(1,start:frames),ysd3_(1,start:frames),yktf4_(1,start:frames),ysh4_(1,start:frames),ynpb4_(1,start:frames),ysf2_(1,start:frames),ynpc4_(1,start:frames),yse3_(1,start:frames),ysh5_(1,start:frames),ynpd3_(1,start:frames),yktg2_(1,start:frames),ykte4_(1,start:frames),yktf5_(1,start:frames),ynpi4_(1,start:frames),ykth4_(1,start:frames),ysc3_(1,start:frames),ykti2_(1,start:frames),ysi4_(1,start:frames),ysh3_(1,start:frames),yktc3_(1,start:frames),yse4_(1,start:frames),ysb3_(1,start:frames),ynph4_(1,start:frames),ysf4_(1,start:frames),ynpb3_(1,start:frames),ykti3_(1,start:frames),ynpi5_(1,start:frames),ynpi2_(1,start:frames),ykth3_(1,start:frames),yktg4_(1,start:frames),yktf2_(1,start:frames),ysb4_(1,start:frames),ykte2_(1,start:frames),yktg3_(1,start:frames),yktb3_(1,start:frames),ykti5_(1,start:frames),ynpd5_(1,start:frames),yktd2_(1,start:frames),ysg4_(1,start:frames),ykth5_(1,start:frames),yktf3_(1,start:frames),yktb4_(1,start:frames),ynpc5_(1,start:frames),yktg5_(1,start:frames),yktd3_(1,start:frames),ysi5_(1,start:frames),ynpd4_(1,start:frames),ynpf3_(1,start:frames),yktd5_(1,start:frames),ykte3_(1,start:frames),ysd2_(1,start:frames),ynpe5_(1,start:frames),yse5_(1,start:frames),ynpe4_(1,start:frames),ysf3_(1,start:frames),yktb2_(1,start:frames),ynph2_(1,start:frames),ysd5_(1,start:frames),ysc5_(1,start:frames),ynpd2_(1,start:frames),yktd4_(1,start:frames),ysi2_(1,start:frames),ysb5_(1,start:frames),ysc2_(1,start:frames),yktc2_(1,start:frames),ykte5_(1,start:frames),yktc4_(1,start:frames),ysd4_(1,start:frames),ysc4_(1,start:frames),ysi3_(1,start:frames),ynpe3_(1,start:frames)];
+% sequence for x and y data of second most prominent cluster
+seq2 = [xsg3_(2,start:frames),xnpi3_(2,start:frames),xsg5_(2,start:frames),xnpf4_(2,start:frames),xsf5_(2,start:frames),xsg2_(2,start:frames),xnph5_(2,start:frames),xnpc3_(2,start:frames),xnpc2_(2,start:frames),xse2_(2,start:frames),xnpb2_(2,start:frames),xsb2_(2,start:frames),xsd3_(2,start:frames),xktf4_(2,start:frames),xsh4_(2,start:frames),xnpb4_(2,start:frames),xsf2_(2,start:frames),xnpc4_(2,start:frames),xse3_(2,start:frames),xsh5_(2,start:frames),xnpd3_(2,start:frames),xktg2_(2,start:frames),xkte4_(2,start:frames),xktf5_(2,start:frames),xnpi4_(2,start:frames),xkth4_(2,start:frames),xsc3_(2,start:frames),xkti2_(2,start:frames),xsi4_(2,start:frames),xsh3_(2,start:frames),xktc3_(2,start:frames),xse4_(2,start:frames),xsb3_(2,start:frames),xnph4_(2,start:frames),xsf4_(2,start:frames),xnpb3_(2,start:frames),xkti3_(2,start:frames),xnpi5_(2,start:frames),xnpi2_(2,start:frames),xkth3_(2,start:frames),xktg4_(2,start:frames),xktf2_(2,start:frames),xsb4_(2,start:frames),xkte2_(2,start:frames),xktg3_(2,start:frames),xktb3_(2,start:frames),xkti5_(2,start:frames),xnpd5_(2,start:frames),xktd2_(2,start:frames),xsg4_(2,start:frames),xkth5_(2,start:frames),xktf3_(2,start:frames),xktb4_(2,start:frames),xnpc5_(2,start:frames),xktg5_(2,start:frames),xktd3_(2,start:frames),xsi5_(2,start:frames),xnpd4_(2,start:frames),xnpf3_(2,start:frames),xktd5_(2,start:frames),xkte3_(2,start:frames),xsd2_(2,start:frames),xnpe5_(2,start:frames),xse5_(2,start:frames),xnpe4_(2,start:frames),xsf3_(2,start:frames),xktb2_(2,start:frames),xnph2_(2,start:frames),xsd5_(2,start:frames),xsc5_(2,start:frames),xnpd2_(2,start:frames),xktd4_(2,start:frames),xsi2_(2,start:frames),xsb5_(2,start:frames),xsc2_(2,start:frames),xktc2_(2,start:frames),xkte5_(2,start:frames),xktc4_(2,start:frames),xsd4_(2,start:frames),xsc4_(2,start:frames),xsi3_(2,start:frames),xnpe3_(2,start:frames);
+        ysg3_(2,start:frames),ynpi3_(2,start:frames),ysg5_(2,start:frames),ynpf4_(2,start:frames),ysf5_(2,start:frames),ysg2_(2,start:frames),ynph5_(2,start:frames),ynpc3_(2,start:frames),ynpc2_(2,start:frames),yse2_(2,start:frames),ynpb2_(2,start:frames),ysb2_(2,start:frames),ysd3_(2,start:frames),yktf4_(2,start:frames),ysh4_(2,start:frames),ynpb4_(2,start:frames),ysf2_(2,start:frames),ynpc4_(2,start:frames),yse3_(2,start:frames),ysh5_(2,start:frames),ynpd3_(2,start:frames),yktg2_(2,start:frames),ykte4_(2,start:frames),yktf5_(2,start:frames),ynpi4_(2,start:frames),ykth4_(2,start:frames),ysc3_(2,start:frames),ykti2_(2,start:frames),ysi4_(2,start:frames),ysh3_(2,start:frames),yktc3_(2,start:frames),yse4_(2,start:frames),ysb3_(2,start:frames),ynph4_(2,start:frames),ysf4_(2,start:frames),ynpb3_(2,start:frames),ykti3_(2,start:frames),ynpi5_(2,start:frames),ynpi2_(2,start:frames),ykth3_(2,start:frames),yktg4_(2,start:frames),yktf2_(2,start:frames),ysb4_(2,start:frames),ykte2_(2,start:frames),yktg3_(2,start:frames),yktb3_(2,start:frames),ykti5_(2,start:frames),ynpd5_(2,start:frames),yktd2_(2,start:frames),ysg4_(2,start:frames),ykth5_(2,start:frames),yktf3_(2,start:frames),yktb4_(2,start:frames),ynpc5_(2,start:frames),yktg5_(2,start:frames),yktd3_(2,start:frames),ysi5_(2,start:frames),ynpd4_(2,start:frames),ynpf3_(2,start:frames),yktd5_(2,start:frames),ykte3_(2,start:frames),ysd2_(2,start:frames),ynpe5_(2,start:frames),yse5_(2,start:frames),ynpe4_(2,start:frames),ysf3_(2,start:frames),yktb2_(2,start:frames),ynph2_(2,start:frames),ysd5_(2,start:frames),ysc5_(2,start:frames),ynpd2_(2,start:frames),yktd4_(2,start:frames),ysi2_(2,start:frames),ysb5_(2,start:frames),ysc2_(2,start:frames),yktc2_(2,start:frames),ykte5_(2,start:frames),yktc4_(2,start:frames),ysd4_(2,start:frames),ysc4_(2,start:frames),ysi3_(2,start:frames),ynpe3_(2,start:frames)];
+   
 % kt state 1, np state 2, s state 3
 size_ones = ones(1,frames-start+1); % all variables have same # of frames analyzed so same length
-statesB = [1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,3*size_ones];
-statesC = [1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones];
-statesD = [1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones];
-statesE = [1*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones];
-statesF = [1*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,1*size_ones,3*size_ones];
-statesG = [1*size_ones,3*size_ones,1*size_ones,3*size_ones,1*size_ones,3*size_ones,1*size_ones,3*size_ones];
-statesH = [2*size_ones,1*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones];
-statesI = [1*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones];
+states = [3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_ones,2*size_ones,2*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_ones,1*size_ones,3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,3*size_ones,2*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,3*size_ones,1*size_ones,3*size_ones,3*size_ones,1*size_ones,3*size_ones,3*size_ones,2*size_ones,3*size_ones,2*size_ones,1*size_ones,2*size_ones,2*size_ones,1*size_ones,1*size_ones,1*size_ones,3*size_ones,1*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,3*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,1*size_ones,3*size_ones,2*size_ones,2*size_ones,1*size_ones,1*size_ones,3*size_ones,2*size_ones,3*size_ones,2*size_ones,3*size_ones,1*size_ones,2*size_ones,3*size_ones,3*size_ones,2*size_ones,1*size_ones,3*size_ones,3*size_ones,3*size_ones,1*size_ones,1*size_ones,1*size_ones,3*size_ones,3*size_ones,3*size_ones,2*size_ones];
 
-[trans_estxB,emis_estxB] = hmmestimate(seqB1(1,:),statesB); % seq# here corresponds to seq# in saved .csv below
-%[trans_esty,emis_esty] = hmmestimate(seq1(2,:),states);
-[trans_estxC,emis_estxC] = hmmestimate(seqC1(1,:),statesC);
-[trans_estxD,emis_estxD] = hmmestimate(seqD1(1,:),statesD);
-[trans_estxE,emis_estxE] = hmmestimate(seqE1(1,:),statesE);
-[trans_estxF,emis_estxF] = hmmestimate(seqF1(1,:),statesF);
-[trans_estxG,emis_estxG] = hmmestimate(seqG1(1,:),statesG);
-[trans_estxH,emis_estxH] = hmmestimate(seqH1(1,:),statesH);
-[trans_estxI,emis_estxI] = hmmestimate(seqI1(1,:),statesI);
-
+[trans_estx,emis_estx] = hmmestimate(seq1(1,:),states); % seq# here corresponds to seq# in saved .csv below
+[trans_esty,emis_esty] = hmmestimate(seq1(2,:),states);
 % fix Nan issue
 min = 1e-10; % choose a small non-zero value
-emis_estxB(emis_estxB < min) = min;
-%emis_estyB(emis_esty < min) = min;
-emis_estxC(emis_estxC < min) = min;
-emis_estxD(emis_estxD < min) = min;
-emis_estxE(emis_estxE < min) = min;
-emis_estxF(emis_estxF < min) = min;
-emis_estxG(emis_estxG < min) = min;
-emis_estxH(emis_estxH < min) = min;
-emis_estxI(emis_estxI < min) = min;
+emis_estx(emis_estx < min) = min;
+emis_esty(emis_esty < min) = min;
+
+max1 = max(seq1,[],2);
 
 % sequence testing, all "XXX_X_001.csv" data sets left out of training
 seq1 = [xktb1_(1,start:frames),xktc1_(1,start:frames),xktd1_(1,start:frames),xkte1_(1,start:frames),xktf1_(1,start:frames),xktg1_(1,start:frames),xkti1_(1,start:frames),xnpb1_(1,start:frames),xnpc1_(1,start:frames),xnpd1_(1,start:frames),xnpe1_(1,start:frames),xnpf1_(1,start:frames),xsb1_(1,start:frames),xsc1_(1,start:frames),xsd1_(1,start:frames),xse1_(1,start:frames),xsf1_(1,start:frames),xsg1_(1,start:frames),xsh1_(1,start:frames),xsi1_(1,start:frames); 
         yktb1_(1,start:frames),yktc1_(1,start:frames),yktd1_(1,start:frames),ykte1_(1,start:frames),yktf1_(1,start:frames),yktg1_(1,start:frames),ykti1_(1,start:frames),ynpb1_(1,start:frames),ynpc1_(1,start:frames),ynpd1_(1,start:frames),ynpe1_(1,start:frames),ynpf1_(1,start:frames),ysb1_(1,start:frames),ysc1_(1,start:frames),ysd1_(1,start:frames),yse1_(1,start:frames),ysf1_(1,start:frames),ysg1_(1,start:frames),ysh1_(1,start:frames),ysi1_(1,start:frames)];
 seq2 = [xktb1_(2,start:frames),xktc1_(2,start:frames),xktd1_(2,start:frames),xkte1_(2,start:frames),xktf1_(2,start:frames),xktg1_(2,start:frames),xkti1_(2,start:frames),xnpb1_(2,start:frames),xnpc1_(2,start:frames),xnpd1_(2,start:frames),xnpe1_(2,start:frames),xnpf1_(2,start:frames),xsb1_(2,start:frames),xsc1_(2,start:frames),xsd1_(2,start:frames),xse1_(2,start:frames),xsf1_(2,start:frames),xsg1_(2,start:frames),xsh1_(2,start:frames),xsi1_(2,start:frames); 
         yktb1_(2,start:frames),yktc1_(2,start:frames),yktd1_(2,start:frames),ykte1_(2,start:frames),yktf1_(2,start:frames),yktg1_(2,start:frames),ykti1_(2,start:frames),ynpb1_(2,start:frames),ynpc1_(2,start:frames),ynpd1_(2,start:frames),ynpe1_(2,start:frames),ynpf1_(2,start:frames),ysb1_(2,start:frames),ysc1_(2,start:frames),ysd1_(2,start:frames),yse1_(2,start:frames),ysf1_(2,start:frames),ysg1_(2,start:frames),ysh1_(2,start:frames),ysi1_(2,start:frames)];
-seq1(seq1>=607)=607; % clip (largest is 615)
-seq2(seq2>=470)=470;
+temp = seq1(1,1:end); % clipping
+temp(temp>=max1(1))=max1(1);
+seq1(seq1>=max1(2))=max1(2);
+seq1(1,1:end) = temp;
 numstates = size(size_ones,2);
 seqnum = size(seq1,2)/numstates; % number of sequences testing
-results = zeros(3*8,seqnum);
+results = zeros(9,8*3);
 for i=1:seqnum
     seqi = seq1(:,(1+(i-1)*numstates):(i*numstates));
-    pstatesxB = hmmdecode(seqi(1,:), trans_estxB, emis_estxB);
-    %pstatesy = hmmdecode(seqi(2,:), trans_esty, emis_esty);
-    pstatesxC = hmmdecode(seqi(1,:), trans_estxC, emis_estxC);
-    pstatesxD = hmmdecode(seqi(1,:), trans_estxD, emis_estxD);
-    pstatesxE = hmmdecode(seqi(1,:), trans_estxE, emis_estxE);
-    pstatesxF = hmmdecode(seqi(1,:), trans_estxF, emis_estxF);
-    if max(seqi(1,:)) <= 409
-        pstatesxG = hmmdecode(seqi(1,:), trans_estxG, emis_estxG);
-    end
-    pstatesxH = hmmdecode(seqi(1,:), trans_estxH, emis_estxH);
-    pstatesxI = hmmdecode(seqi(1,:), trans_estxI, emis_estxI);
-    xprobB = sum(pstatesxB,2)/numstates;
-    %yprob = sum(pstatesy,2)/numstates;
-    xprobC = sum(pstatesxC,2)/numstates;
-    xprobD = sum(pstatesxD,2)/numstates;
-    xprobE = sum(pstatesxE,2)/numstates;
-    xprobF = sum(pstatesxF,2)/numstates;
-    if max(seqi(1,:)) <= 409
-        xprobG = sum(pstatesxG,2)/numstates;
-    end
-    xprobH = sum(pstatesxH,2)/numstates;
-    xprobI = sum(pstatesxI,2)/numstates;
+    pstatesx = hmmdecode(seqi(1,:), trans_estx, emis_estx);
+    pstatesy = hmmdecode(seqi(2,:), trans_esty, emis_esty);
+    xprob = sum(pstatesx,2)/numstates;
+    yprob = sum(pstatesy,2)/numstates;
     prob = [0; 0; 0];%(xprob + yprob)/2;
-    
-    results(1:3,i) = xprobB;
-    results(4:6,i) = xprobC;
-    results(7:9,i) = xprobD;
-    results(10:12,i) = xprobE;
-    results(13:15,i) = xprobF;
-    if max(seqi(1,:)) <= 409
-        results(16:18,i) = xprobG;
+    [max_val,state_pred] = max(max([xprob,yprob],[],2));
+    if max_val <= 0.7
+        state_pred = -1;
     end
-    results(19:21,i) = xprobH;
-    results(22:24,i) = xprobI;
+    if i>7 
+        if i>12 % s
+            results(7,1+(i-1-12)*3) = state_pred;
+            results(7:9,2+(i-1-12)*3) = xprob;
+            results(7:9,3+(i-1-12)*3) = yprob;
+        else % np
+            results(4,1+(i-1-7)*3) = state_pred;
+            results(4:6,2+(i-1-7)*3) = xprob;
+            results(4:6,3+(i-1-7)*3) = yprob;
+        end
+    else % kt
+        results(1,1+(i-1)*3) = state_pred;
+        results(1:3,2+(i-1)*3) = xprob;
+        results(1:3,3+(i-1)*3) = yprob;
+    end
 end
                 
-csvwrite('test_870frames_pt3alpha_seq1_multi_ave_1-4.csv',results,1,1);
+csvwrite('test_870frames_pt3alpha_seq1_ave2_0.csv',results,1,1);
