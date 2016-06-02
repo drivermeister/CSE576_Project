@@ -1,9 +1,9 @@
 clear all; close all;
-obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_D001_capture1.avi');
+obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_D001_capture1.avi');
 nFrames=obj.NumberOfFrames;
-new = 0.2; % variable to determine new cluster weight
-frame_start = 100;
-frame_end   = 200;
+new = 0.3; % variable to determine new cluster weight
+frame_start = 350;
+frame_end   = 400;
 
 % get initial cluster values before looping - want to start running ave
 % with actual location

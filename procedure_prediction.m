@@ -1,6 +1,6 @@
 function procedure = procedure_prediction(obj)
 scale = 2;
-clust1 = getCornersAveClust1(obj,0.3,1,870);
+clust1 = getCornersAveClust1(obj,0.3,100,400);
 seq = round(clust1)'*scale;
 
 trans_estx1 = csvread('trans_estx1.csv');
