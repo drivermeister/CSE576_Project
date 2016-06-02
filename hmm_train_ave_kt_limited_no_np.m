@@ -357,7 +357,7 @@ ysi1_ = round(SI1(1:nFrames,[2 4])'*scale);
 %% independent hmm for each dimension 
 % sequence for x and y data of most prominent cluster
 start  = 100;
-frames = 800;
+frames = 400;
 % no kt f,g,h,i
 seq1 = [xsg3_(1,start:frames),xsg5_(1,start:frames),xsf5_(1,start:frames),xsg2_(1,start:frames),xse2_(1,start:frames),xsb2_(1,start:frames),xsd3_(1,start:frames),xsh4_(1,start:frames),xsf2_(1,start:frames),xse3_(1,start:frames),xsh5_(1,start:frames),xkte4_(1,start:frames),xsc3_(1,start:frames),xsi4_(1,start:frames),xsh3_(1,start:frames),xktc3_(1,start:frames),xse4_(1,start:frames),xsb3_(1,start:frames),xsf4_(1,start:frames),xsb4_(1,start:frames),xkte2_(1,start:frames),xktb3_(1,start:frames),xktd2_(1,start:frames),xsg4_(1,start:frames),xktb4_(1,start:frames),xktd3_(1,start:frames),xsi5_(1,start:frames),xktd5_(1,start:frames),xkte3_(1,start:frames),xsd2_(1,start:frames),xse5_(1,start:frames),xsf3_(1,start:frames),xktb2_(1,start:frames),xsd5_(1,start:frames),xsc5_(1,start:frames),xktd4_(1,start:frames),xsi2_(1,start:frames),xsb5_(1,start:frames),xsc2_(1,start:frames),xktc2_(1,start:frames),xkte5_(1,start:frames),xktc4_(1,start:frames),xsd4_(1,start:frames),xsc4_(1,start:frames),xsi3_(1,start:frames);
         ysg3_(1,start:frames),ysg5_(1,start:frames),ysf5_(1,start:frames),ysg2_(1,start:frames),yse2_(1,start:frames),ysb2_(1,start:frames),ysd3_(1,start:frames),ysh4_(1,start:frames),ysf2_(1,start:frames),yse3_(1,start:frames),ysh5_(1,start:frames),ykte4_(1,start:frames),ysc3_(1,start:frames),ysi4_(1,start:frames),ysh3_(1,start:frames),yktc3_(1,start:frames),yse4_(1,start:frames),ysb3_(1,start:frames),ysf4_(1,start:frames),ysb4_(1,start:frames),ykte2_(1,start:frames),yktb3_(1,start:frames),yktd2_(1,start:frames),ysg4_(1,start:frames),yktb4_(1,start:frames),yktd3_(1,start:frames),ysi5_(1,start:frames),yktd5_(1,start:frames),ykte3_(1,start:frames),ysd2_(1,start:frames),yse5_(1,start:frames),ysf3_(1,start:frames),yktb2_(1,start:frames),ysd5_(1,start:frames),ysc5_(1,start:frames),yktd4_(1,start:frames),ysi2_(1,start:frames),ysb5_(1,start:frames),ysc2_(1,start:frames),yktc2_(1,start:frames),ykte5_(1,start:frames),yktc4_(1,start:frames),ysd4_(1,start:frames),ysc4_(1,start:frames),ysi3_(1,start:frames)];
@@ -369,14 +369,20 @@ seq2 = [xsg3_(2,start:frames),xnpi3_(2,start:frames),xsg5_(2,start:frames),xnpf4
 size_ones = ones(1,frames-start+1); % all variables have same # of frames analyzed so same length
 states = [2*size_ones,2*size_ones,2*size_ones,2*size_ones,2*size_ones,2*size_ones,2*size_ones,2*size_ones,2*size_ones,2*size_ones,2*size_ones,1*size_ones,2*size_ones,2*size_ones,2*size_ones,1*size_ones,2*size_ones,2*size_ones,2*size_ones,2*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,1*size_ones,2*size_ones,1*size_ones,1*size_ones,2*size_ones,2*size_ones,2*size_ones,1*size_ones,2*size_ones,2*size_ones,1*size_ones,2*size_ones,2*size_ones,2*size_ones,1*size_ones,1*size_ones,1*size_ones,2*size_ones,2*size_ones,2*size_ones];
 
-[trans_estx,emis_estx] = hmmestimate(seq1(1,:),states); % seq# here corresponds to seq# in saved .csv below
-[trans_esty,emis_esty] = hmmestimate(seq1(2,:),states);
+[trans_estx1,emis_estx1] = hmmestimate(seq1(1,:),states); % seq# here corresponds to seq# in saved .csv below
+[trans_esty1,emis_esty1] = hmmestimate(seq1(2,:),states);
+csvwrite('trans_estx1.csv',trans_estx1);
+csvwrite('trans_esty1.csv',trans_esty1);
+
 % fix Nan issue
 min = 1e-10; % choose a small non-zero value
-emis_estx(emis_estx < min) = min;
-emis_esty(emis_esty < min) = min;
+emis_estx1(emis_estx1 < min) = min;
+emis_esty1(emis_esty1 < min) = min;
 
+csvwrite('emis_estx1.csv',emis_estx1);
+csvwrite('emis_esty1.csv',emis_esty1);
 max1 = max(seq1,[],2);
+csvwrite('max_seq1.csv',max1);
 
 % sequence testing, all "XXX_X_001.csv" data sets left out of training
 seq1 = [xktb1_(1,start:frames),xktc1_(1,start:frames),xktd1_(1,start:frames),xkte1_(1,start:frames),xktf1_(1,start:frames),xktg1_(1,start:frames),xkti1_(1,start:frames),xsb1_(1,start:frames),xsc1_(1,start:frames),xsd1_(1,start:frames),xse1_(1,start:frames),xsf1_(1,start:frames),xsg1_(1,start:frames),xsh1_(1,start:frames),xsi1_(1,start:frames); 
@@ -393,8 +399,8 @@ seqnum = size(seq1,2)/numstates; % number of sequences testing
 results = zeros(2*3,8*3);
 for i=1:seqnum
     seqi = seq1(:,(1+(i-1)*numstates):(i*numstates));
-    pstatesx = hmmdecode(seqi(1,:), trans_estx, emis_estx);
-    pstatesy = hmmdecode(seqi(2,:), trans_esty, emis_esty);
+    pstatesx = hmmdecode(seqi(1,:), trans_estx1, emis_estx1);
+    pstatesy = hmmdecode(seqi(2,:), trans_esty1, emis_esty1);
     xprob = sum(pstatesx,2)/numstates;
     yprob = sum(pstatesy,2)/numstates;
     prob = [0; 0];%(xprob + yprob)/2;
@@ -414,4 +420,4 @@ for i=1:seqnum
     end
 end
 
-csvwrite('test_870frames_pt3alpha_seq1_ave_kt_limited_no_np2_0.csv',results,1,1);
+csvwrite('test_100_400frames_pt3alpha_seq1_ave_kt_limited_no_np2_0.csv',results,1,1);
