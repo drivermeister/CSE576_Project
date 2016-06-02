@@ -389,6 +389,7 @@ seq1 = [xktb1_(1,start:frames),xktc1_(1,start:frames),xktd1_(1,start:frames),xkt
         yktb1_(1,start:frames),yktc1_(1,start:frames),yktd1_(1,start:frames),ykte1_(1,start:frames),yktf1_(1,start:frames),yktg1_(1,start:frames),ykti1_(1,start:frames),ysb1_(1,start:frames),ysc1_(1,start:frames),ysd1_(1,start:frames),yse1_(1,start:frames),ysf1_(1,start:frames),ysg1_(1,start:frames),ysh1_(1,start:frames),ysi1_(1,start:frames)];
 seq2 = [xktb1_(2,start:frames),xktc1_(2,start:frames),xktd1_(2,start:frames),xkte1_(2,start:frames),xktf1_(2,start:frames),xktg1_(2,start:frames),xkti1_(2,start:frames),xnpb1_(2,start:frames),xnpc1_(2,start:frames),xnpd1_(2,start:frames),xnpe1_(2,start:frames),xnpf1_(2,start:frames),xsb1_(2,start:frames),xsc1_(2,start:frames),xsd1_(2,start:frames),xse1_(2,start:frames),xsf1_(2,start:frames),xsg1_(2,start:frames),xsh1_(2,start:frames),xsi1_(2,start:frames); 
         yktb1_(2,start:frames),yktc1_(2,start:frames),yktd1_(2,start:frames),ykte1_(2,start:frames),yktf1_(2,start:frames),yktg1_(2,start:frames),ykti1_(2,start:frames),ynpb1_(2,start:frames),ynpc1_(2,start:frames),ynpd1_(2,start:frames),ynpe1_(2,start:frames),ynpf1_(2,start:frames),ysb1_(2,start:frames),ysc1_(2,start:frames),ysd1_(2,start:frames),yse1_(2,start:frames),ysf1_(2,start:frames),ysg1_(2,start:frames),ysh1_(2,start:frames),ysi1_(2,start:frames)];
+%seq1 = [xsf1_(1,start:frames); ysf1_(1,start:frames)];
 temp = seq1(1,1:end); % clipping
 temp(temp>=max1(1))=max1(1);
 seq1(seq1>=max1(2))=max1(2);

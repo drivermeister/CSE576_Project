@@ -6,6 +6,11 @@ function clust1 = getCornersAveClust1(obj,alpha,frame_start,frame_end)
     % each frame.
     % clust1 and clust2 are nFrames by 2 matrices with the xy coords for
     % their respective cluster in each frame.
+    ave_buff_flag = 0;
+    if frame_start > 100
+        ave_buff_flag = 1;
+        frame_start = frame_start - 100;
+    end
     nFrames = frame_end-frame_start+1;
     clust1 = zeros(nFrames,2);
 
@@ -19,15 +24,15 @@ function clust1 = getCornersAveClust1(obj,alpha,frame_start,frame_end)
     if size(C,1) > 0                            % initial values of top 2 clusters
         clust1(1,:) = C(1,:); 
     else
-        clust1(1,:) = [320 240];
+        clust1(1,:) = [0 0];
     end
-    for k=frame_start+1:frame_end
+    for k=(frame_start+1):frame_end
         I=read(obj,k);
         I = rgb2gray(I);
         corners = detectHarrisFeatures(I);
         x = corners.selectStrongest(50).Location;   
         [C,S] = subclust(x,0.3); 
-        % checks for when subclust() does not find two clusters
+        % checks for when subclust() does not find a cluster
         if size(C,1) > 0
             clust1(k,:) = (1-alpha)*clust1(k-1,:) + alpha*C(1,:); 
         else
@@ -37,5 +42,8 @@ function clust1 = getCornersAveClust1(obj,alpha,frame_start,frame_end)
     
     ave_param = ones(1,10)/10;
     clust1 = filter(ave_param,1,clust1);
+    if ave_buff_flag
+        clust1 = clust1(50:end,:);
+    end
     
 end

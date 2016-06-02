@@ -1,0 +1,20 @@
+Intro/Motivation
+
+Background
+	setup
+
+Method
+	Process video
+		corner detection
+		cluster corners
+		smoothing
+	HMM
+		training process
+		state prediction
+		
+Discussion
+	significance of results
+		
+Conclusion
+	summary
+
