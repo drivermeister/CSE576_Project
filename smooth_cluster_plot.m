@@ -19,7 +19,7 @@ ylabel('x position');
 subplot(3,1,2)
 hold on
 plot(t,clust1smooth(min:max,1),'b');
-title('Cluster position tracking: Smooth');
+title('Cluster position tracking: Running Average');
 ylabel('x position');
 
 subplot(3,1,3)

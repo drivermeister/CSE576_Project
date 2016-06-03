@@ -7,9 +7,10 @@ function clust1 = getCornersAveClust1(obj,alpha,frame_start,frame_end)
     % clust1 and clust2 are nFrames by 2 matrices with the xy coords for
     % their respective cluster in each frame.
     ave_buff_flag = 0;
-    if frame_start > 100
+    frame_buffer = 30;
+    if frame_start > frame_buffer
         ave_buff_flag = 1;
-        frame_start = frame_start - 100;
+        frame_start = frame_start - frame_buffer;
     end
     nFrames = frame_end-frame_start+1;
     clust1 = zeros(nFrames,2);
@@ -43,7 +44,7 @@ function clust1 = getCornersAveClust1(obj,alpha,frame_start,frame_end)
     ave_param = ones(1,10)/10;
     clust1 = filter(ave_param,1,clust1);
     if ave_buff_flag
-        clust1 = clust1(50:end,:);
+        clust1 = clust1(frame_start+frame_buffer:end,:);
     end
     
 end
