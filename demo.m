@@ -9,8 +9,8 @@ obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Knot_Tying_B001_capture1.avi');
 % obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_F001_capture1.avi');
 % obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_G001_capture1.avi');
 % obj=VideoReader('C:\Users\Kyle\Documents\MATLAB\Suturing_H001_capture1.avi');
-
-procedure = procedure_prediction(obj);
+start_frame = 100; end_frame = 400;
+procedure = procedure_prediction(obj,start_frame,end_frame);
 if procedure == 1
     disp('Knot Tying');
 elseif procedure == 2
